@@ -1,5 +1,5 @@
-from typing import Union#
-import asyncpg
+from typing import Union
+import asyncpg, os
 from asyncpg import Connection
 from asyncpg.pool import Pool
 import ssl
