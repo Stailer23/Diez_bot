@@ -87,7 +87,7 @@ async def load_lk(message: types.Message, state: FSMContext):
     KeyboardButton('Посмотреть мои билеты'))
     await message.reply(f'Отзыв отправлен успешно! номер вашего билета: {bil}\n'
                         f'Подписывайтесь на нашу группу, чтобы не пропутить розыгрыш!\n'
-                        f'https://vk.com/pikabu', reply_markup=keyboard)
+                        f'https://t.me/autopolus', reply_markup=keyboard)
     await state.finish()
 
 
