@@ -1,13 +1,13 @@
 from aiogram import executor, types
 import asyncio
 from dbase_bot.database import DataBase
-# from aiogram.methods import SendPhoto
 
 from create_bot import dp
 from aiogram.types import KeyboardButton, BotCommand
 
 async def on_startup(_):
     print('Бот запущен')
+
 
 @dp.message_handler(commands=['start','help'])
 async def start_bot(message: types.Message):

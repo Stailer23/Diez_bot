@@ -14,7 +14,7 @@ def create_table():
         connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         # Курсор для выполнения операций с базой данных
         cursor = connection.cursor()
-        sql_create_database = 'create database postgres_db'
+        sql_create_database = 'create database bott_db'
         cursor.execute(sql_create_database)
     except (Exception, Error) as error:
         print("Ошибка при работе с PostgreSQL", error)
