@@ -5,12 +5,12 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 def create_table():
     try:
         # Подключение к существующей базе данных
-        # connection = psycopg2.connect(user="postgres",
-        #                               # пароль, который указали при установке PostgreSQL
-        #                               password="123456",
-        #                               host="127.0.0.1",
-        #                               port="5432")
-        connection = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
+        connection = psycopg2.connect(user="postgres",
+                                      # пароль, который указали при установке PostgreSQL
+                                      password="123456",
+                                      host="127.0.0.1",
+                                      port="5432")
+        # connection = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
         connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         # Курсор для выполнения операций с базой данных
         cursor = connection.cursor()
@@ -27,13 +27,13 @@ def create_table():
 def create_new_table_users():
     try:
         # Подключиться к существующей базе данных
-        # connection = psycopg2.connect(user="postgres",
-        #                               # пароль, который указали при установке PostgreSQL
-        #                               password="153789",
-        #                               host="127.0.0.1",
-        #                               port="5432",
-        #                               database="db_bot")
-        connection = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
+        connection = psycopg2.connect(user="postgres",
+                                      # пароль, который указали при установке PostgreSQL
+                                      password="153789",
+                                      host="127.0.0.1",
+                                      port="5432",
+                                      database="db_bot")
+        # connection = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
 
         # Создайте курсор для выполнения операций с базой данных
         cursor = connection.cursor()
@@ -60,13 +60,13 @@ def create_new_table_users():
 def create_new_table_comments():
     try:
         # Подключиться к существующей базе данных
-        # connection = psycopg2.connect(user="postgres",
-        #                               # пароль, который указали при установке PostgreSQL
-        #                               password="153789",
-        #                               host="127.0.0.1",
-        #                               port="5432",
-        #                               database="db_bot")
-        connection = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
+        connection = psycopg2.connect(user="postgres",
+                                      # пароль, который указали при установке PostgreSQL
+                                      password="153789",
+                                      host="127.0.0.1",
+                                      port="5432",
+                                      database="db_bot")
+        # connection = psycopg2.connect(os.environ.get('DATABASE_URL'), sslmode='require')
         # Создайте курсор для выполнения операций с базой данных
         cursor = connection.cursor()
         # SQL-запрос для создания новой таблицы

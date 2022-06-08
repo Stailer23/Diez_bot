@@ -12,9 +12,9 @@ class DBcomm:
         self.pool: Union[Pool, None] = None
 
     async def create_pool(self):
-        # self.pool = await asyncpg.create_pool(database="db_bot", user="postgres", password="153789", host="127.0.0.1",
-        #                              port="5432")
-        self.pool = await asyncpg.create_pool(dsn=os.environ.get('DATABASE_URL'), ssl=ssl_object)
+        self.pool = await asyncpg.create_pool(database="db_bot", user="postgres", password="153789", host="127.0.0.1",
+                                     port="5432")
+        # self.pool = await asyncpg.create_pool(dsn=os.environ.get('DATABASE_URL'), ssl=ssl_object)
 
 
     async def execute(self, command: str, *args,
