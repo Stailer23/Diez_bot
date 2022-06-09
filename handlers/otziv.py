@@ -60,7 +60,7 @@ async def load_otziv(message: types.Message, state: FSMContext):
         if chek_scrin(scrin_list, message.photo[0].file_unique_id) == True:
             keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(
             KeyboardButton('Отмена'))
-            await message.answer('Вы уже добавляли этот скриншот! Добавьте новый отзыв!', keyboard)
+            await message.answer('Вы уже добавляли этот скриншот! Добавьте новый отзыв!', reply_markup=keyboard)
             await message.delete()
             return
         data['otziv'] = message.photo[0].file_id
