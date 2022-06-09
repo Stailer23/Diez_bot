@@ -5,6 +5,7 @@ from create_bot import dp
 from aiogram.types import KeyboardButton, ReplyKeyboardRemove
 from dbase_bot.database import DBcomm, DataBase, reg_user
 from dbase_bot import database
+from datetime import datetime
 
 class FsmReg(StatesGroup):
     name = State()
@@ -15,21 +16,23 @@ async def cm_start(message: types.Message):
     if await database.check_user(message.chat.id) == True:
         keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(
         KeyboardButton('Отправить отзыв')).add(
-        KeyboardButton('Посмотреть мои билеты'))
+        KeyboardButton('Посмотреть мои билеты')).add(
+        KeyboardButton('Разыгрываемые призы'))
         await message.answer('Вы уже зарегистированы! Добавляйте отзывы и получайте билеты!', reply_markup=keyboard)
         return
     await FsmReg.name.set()
     await message.answer('Введите фио', reply_markup=ReplyKeyboardRemove())
 
 async def cancel(message: types.Message, state: FSMContext):
-    current_sate = state.get_state()
+    current_sate = await state.get_state()
     if current_sate == None:
         return
     await state.finish()
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(
     KeyboardButton('Регистрация')).add(
     KeyboardButton('Отправить отзыв')).add(
-    KeyboardButton('Посмотреть мои билеты'))
+    KeyboardButton('Посмотреть мои билеты')).add(
+    KeyboardButton('Разыгрываемые призы'))
     await message.answer('Ок! Текущее действие отменено', reply_markup=keyboard)
 
 # @dp.message_handlers(state=FsmReg.name)
@@ -52,11 +55,12 @@ async def load_cont(message: types.Message, state: FSMContext):
         data['phone'] = message.contact.phone_number
     async with state.proxy()as data:
         # dbase = DBcomm()
-        await reg_user(message.chat.id, data['name'], data['phone'])
+        await reg_user(message.chat.id, data['name'], data['phone'], datetime.now())
         # print(data)
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(
     KeyboardButton('Отправить отзыв')).add(
-    KeyboardButton('Посмотреть мои билеты'))
+    KeyboardButton('Посмотреть мои билеты')).add(
+    KeyboardButton('Разыгрываемые призы'))
     await message.answer('Регистрация завершена! Отправьте свой первый отзыв!', reply_markup=keyboard)
     await state.finish()
 

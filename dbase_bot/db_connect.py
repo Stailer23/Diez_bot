@@ -42,7 +42,7 @@ def create_new_table_users():
                                   (id SERIAL,
                                   user_id           INTEGER    NOT NULL,
                                   NAME   VARCHAR(100),
-                                  PHONE VARCHAR(100),
+                                  PHONE VARCHAR(100),                                  
                                   PRIMARY KEY(user_id)); '''
         # Выполнение команды: это создает новую таблицу
         cursor.execute(create_table_query)

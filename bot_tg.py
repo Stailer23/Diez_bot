@@ -22,12 +22,13 @@ async def start_bot(message: types.Message):
 
 
 
-from handlers import register, otziv, tg_billets, admin
+from handlers import register, otziv, tg_billets, admin, prizes
 
 register.register_handlers_reg(dp)
 otziv.register_handlers_otziv(dp)
 tg_billets.register_handlers_billets(dp)
 admin.register_handlers_admin(dp)
+prizes.register_handlers_prizes(dp)
 # Установка команд бота
 
 

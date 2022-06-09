@@ -5,6 +5,7 @@ from create_bot import dp
 from aiogram.types import KeyboardButton, InlineKeyboardButton, ReplyKeyboardRemove
 from dbase_bot import database
 import random
+from datetime import datetime
 
 class FsmOtz(StatesGroup):
     store = State()
@@ -30,6 +31,7 @@ async def set_store(message: types.Message):
     if await database.check_user(message.chat.id) == False:
         keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(
         KeyboardButton('Регистрация')).add(
+        KeyboardButton('Разыгрываемые призы')).add(
         KeyboardButton('Отмена'))
         await message.answer('Для отправки отзывов необходимо зарегистрироваться!', reply_markup=keyboard)
         return
@@ -54,13 +56,13 @@ async def load_otziv(message: types.Message, state: FSMContext):
             await message.reply('Отправьте один скриншот отзыва!')
             await message.delete()
             return
-        print(message.photo[0])
         scrin_list = await database.get_scrin_list()
         if chek_scrin(scrin_list, message.photo[0].file_unique_id) == True:
-            await message.answer('Вы уже добавляли этот скриншот! Добавьте новый отзыв!')
+            keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(
+            KeyboardButton('Отмена'))
+            await message.answer('Вы уже добавляли этот скриншот! Добавьте новый отзыв!', keyboard)
             await message.delete()
             return
-        print(scrin_list)
         data['otziv'] = message.photo[0].file_id
         data['otziv_id'] = message.photo[0].file_unique_id
 
@@ -70,7 +72,6 @@ async def load_otziv(message: types.Message, state: FSMContext):
 async def load_lk(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         if message.media_group_id != None:
-            print(message)
             await message.delete()
             await message.reply('Отправьте только один скриншот ЛК!')
             return
@@ -79,12 +80,11 @@ async def load_lk(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         bil = gen_billet()
         await database.add_comment(message.chat.id, data['store'], data['otziv'], data['scrin_lk'],
-                                   data['otziv_id'], data['lk_id'], bil)
-        print(data)
-    # await FsmOtz.next()
+                                   data['otziv_id'], data['lk_id'], bil, datetime.now())
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(
     KeyboardButton('Отправить еще один отзыв')).add(
-    KeyboardButton('Посмотреть мои билеты'))
+    KeyboardButton('Посмотреть мои билеты')).add(
+    KeyboardButton('Разыгрываемые призы'))
     await message.reply(f'Отзыв отправлен успешно! номер вашего билета: {bil}\n'
                         f'Подписывайтесь на нашу группу, чтобы не пропутить розыгрыш!\n'
                         f'https://t.me/autopolus', reply_markup=keyboard)
