@@ -33,7 +33,7 @@ async def set_store(message: types.Message):
         KeyboardButton('Регистрация')).add(
         KeyboardButton('Разыгрываемые призы')).add(
         KeyboardButton('Отмена'))
-        await message.answer('Для отправки отзывов необходимо зарегистрироваться!', reply_markup=keyboard)
+        await message.answer('Для отправки отзывов необходимо зарегистрироваться!!', reply_markup=keyboard)
         return
     await FsmOtz.store.set()
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(
